@@ -184,3 +184,13 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(found.count(), count)
         for product in found:
             self.assertEqual(product.category, category)
+
+    def test_delete_a_product(self):
+        """It should Delete a Product"""
+        product = ProductFactory()
+        product.create()
+        self.assertIsNotNone(product.id)
+        product_id = product.id
+        product.delete()
+        result = Product.find(product_id)
+        self.assertIsNone(result)
